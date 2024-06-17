@@ -12,8 +12,15 @@ try
     {
         Console.WriteLine(artista);
     }
+    //Artista artistaUpdate = new Artista();
 
-    //Console.WriteLine(ArtistaDAL.DeleteArtista(2)); 
+    //artistaUpdate.Id = 1003;
+    //artistaUpdate.Nome = "Tim Maia";
+    //artistaUpdate.Bio = "Música famosa (Ela partiu)";
+
+    //Console.WriteLine(artistaDAL.UpdateArtista(artistaUpdate));
+
+    //Console.WriteLine(ArtistaDAL.DeleteArtista(1002)); 
     //ArtistaDAL.AddArtista(new Artista("Foo Fighters", "Foo Fighters é uma banda de rock alternativo americana formada por Dave Grohl em 1995."));
 
 }

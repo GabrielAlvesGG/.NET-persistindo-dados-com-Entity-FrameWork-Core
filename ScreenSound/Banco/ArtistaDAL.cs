@@ -73,5 +73,29 @@ namespace ScreenSound.Banco
                 throw ex;
             }
         }
+
+        public  string UpdateArtista(Artista artista)
+        {
+            try
+            {
+                var connection = new Connection().ObterConexao();
+                connection.Open();
+
+                string sql = $"UPDATE Artistas SET  Nome='{artista.Nome}', Bio='{artista.Bio}' WHERE Id={artista.Id} ";
+
+                SqlCommand command = new SqlCommand(sql, connection);
+
+                command.ExecuteNonQuery();
+
+
+
+                return "Atualizado com sucesso.";
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }
