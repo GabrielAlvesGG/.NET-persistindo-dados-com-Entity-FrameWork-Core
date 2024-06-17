@@ -51,5 +51,27 @@ namespace ScreenSound.Banco
 
             Console.WriteLine($"Linhas afetadas: {retorno}");
         }
+        public static string DeleteArtista(int id)
+        {
+            try
+            {
+                using var connection = new Connection().ObterConexao();
+                connection.Open();
+
+                string sql = $"DELETE FROM Artistas WHERE Id={id}";
+
+                SqlCommand command = new SqlCommand(sql, connection);
+
+                int executeCount =  command.ExecuteNonQuery();
+
+                return "Excluído com sucesso.";
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }
