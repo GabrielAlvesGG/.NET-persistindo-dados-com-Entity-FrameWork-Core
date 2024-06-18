@@ -64,7 +64,7 @@ namespace ScreenSound.Banco
 
                 int executeCount =  command.ExecuteNonQuery();
 
-                return "Excluído com sucesso.";
+                return $"Excluído com sucesso. Linhas afetadas: {executeCount}";
 
             }
             catch (Exception ex)
@@ -85,11 +85,15 @@ namespace ScreenSound.Banco
 
                 SqlCommand command = new SqlCommand(sql, connection);
 
-                command.ExecuteNonQuery();
+                command.Parameters.AddWithValue("@nome", artista.Nome);
+                command.Parameters.AddWithValue("@perfilPadrao", artista.FotoPerfil);
+                command.Parameters.AddWithValue("@bio", artista.Bio);
+
+               int returnValue = command.ExecuteNonQuery();
 
 
 
-                return "Atualizado com sucesso.";
+                return $"Atualizado com sucesso. Linhas afetadas: {returnValue}";
             }
             catch (Exception ex)
             {
