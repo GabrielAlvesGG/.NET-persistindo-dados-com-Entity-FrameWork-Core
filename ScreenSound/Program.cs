@@ -5,7 +5,13 @@ using ScreenSound.Modelos;
 
 try
 {
-    var artistaDAL = new ArtistaDAL();
+    var context = new ScreenSoundContext();
+    var artistaDAL = new ArtistaDAL(context);
+
+    var novoArtista = new Artista("Pitty", "Cantora de rock com o cabelo azul") { Id = 1004};
+
+    artistaDAL.DeleteArtista(novoArtista);
+
     var lista = artistaDAL.Listar();
 
     foreach (Artista artista in lista)

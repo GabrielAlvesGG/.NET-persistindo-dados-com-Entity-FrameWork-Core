@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using ScreenSound.Modelos;
 using System;
 using System.Collections.Generic;
@@ -10,81 +11,59 @@ namespace ScreenSound.Banco
 {
     internal class ArtistaDAL
     {
-        public IEnumerable<Artista> Listar()
+        private readonly ScreenSoundContext context;
+
+        public ArtistaDAL(ScreenSoundContext context)
         {
-
-            using var context = new ScreenSoundContext();
-
-            return context.Artistas.ToList();
-
+            this.context = context;
         }
 
-        //public static void AddArtista(Artista artista)
-        //{
-        //    using var connection = new ScreenSoundContext().ObterConexao();
-        //    connection.Open();
+        public IEnumerable<Artista> Listar()
+        {
+            return context.Artistas.ToList();
+        }
 
-        //    string sql = "INSERT INTO Artistas (Nome, FotoPerfil, Bio) VALUES (@nome, @perfilPadrao, @bio)";
+        public void AddArtista(Artista artista)
+        {
+            try
+            {
+                context.Artistas.Add(artista);
+                context.SaveChanges();
 
-        //    SqlCommand command = new SqlCommand(sql, connection);
+            }
+            catch (Exception)
+            {
 
-        //    command.Parameters.AddWithValue("@nome", artista.Nome);
-        //    command.Parameters.AddWithValue("@perfilPadrao", artista.FotoPerfil);
-        //    command.Parameters.AddWithValue("@bio", artista.Bio);
+                throw;
+            }
+           
+        }
+        public void DeleteArtista(Artista artista)
+        {
+            try
+            {
+                context.Artistas.Remove(artista);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
 
-        //    int retorno = command.ExecuteNonQuery();
+                throw ex;
+            }
+        }
 
-        //    Console.WriteLine($"Linhas afetadas: {retorno}");
-        //}
-        //public static string DeleteArtista(int id)
-        //{
-        //    try
-        //    {
-        //        using var connection = new ScreenSoundContext().ObterConexao();
-        //        connection.Open();
+        public void UpdateArtista(Artista artista)
+        {
+            try
+            {
+                context.Artistas.Update(artista);
+                context.SaveChanges ();
+            }
+            catch (Exception ex)
+            {
 
-        //        string sql = $"DELETE FROM Artistas WHERE Id={id}";
-
-        //        SqlCommand command = new SqlCommand(sql, connection);
-
-        //        int executeCount =  command.ExecuteNonQuery();
-
-        //        return $"Excluído com sucesso. Linhas afetadas: {executeCount}";
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-        //}
-
-        //public  string UpdateArtista(Artista artista)
-        //{
-        //    try
-        //    {
-        //        var connection = new ScreenSoundContext().ObterConexao();
-        //        connection.Open();
-
-        //        string sql = $"UPDATE Artistas SET  Nome='{artista.Nome}', Bio='{artista.Bio}' WHERE Id={artista.Id} ";
-
-        //        SqlCommand command = new SqlCommand(sql, connection);
-
-        //        command.Parameters.AddWithValue("@nome", artista.Nome);
-        //        command.Parameters.AddWithValue("@perfilPadrao", artista.FotoPerfil);
-        //        command.Parameters.AddWithValue("@bio", artista.Bio);
-
-        //       int returnValue = command.ExecuteNonQuery();
-
-
-
-        //        return $"Atualizado com sucesso. Linhas afetadas: {returnValue}";
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-        //}
+                throw ex;
+            }
+        }
     }
 }
