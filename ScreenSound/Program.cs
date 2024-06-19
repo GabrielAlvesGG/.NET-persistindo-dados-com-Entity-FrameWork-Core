@@ -2,6 +2,9 @@
 using ScreenSound.Menus;
 using ScreenSound.Modelos;
 
+
+
+
 var context = new ScreenSoundContext();
 var artistaDAL = new ArtistaDAL(context);
 
