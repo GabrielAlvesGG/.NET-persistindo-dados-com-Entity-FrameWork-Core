@@ -9,66 +9,13 @@ using System.Threading.Tasks;
 namespace ScreenSound.Banco
 {
 	
-    internal class MusicaDAL
+    internal class MusicaDAL : DAL<Musica>
     {
-        private readonly ScreenSoundContext context;
-        public MusicaDAL(ScreenSoundContext context)
+        public MusicaDAL(ScreenSoundContext context) : base(context) { }
+        public Musica? RecuperarPeloNome(string nome)
         {
-            this.context = context;
+            return context.Musicas.FirstOrDefault(a => a.Nome.Equals(nome));
+
         }
-        public IEnumerable<Musica> ListarMusicas()
-        {
-			try
-			{
-				return context.Musicas.ToList();
-			}
-			catch (Exception ex)
-			{
-
-				throw ex;
-			}
-        }
-
-		public void AddMusica(Musica musica)
-		{
-			try
-			{
-				context.Musicas.Add(musica);
-				context.SaveChanges();
-			}
-			catch (Exception ex)
-			{
-
-				throw ex;
-			}
-		}
-
-		public void AtualizarMusica(Musica musica)
-		{
-			try
-			{
-				context.Musicas.Update(musica);
-				context.SaveChanges();
-			}
-			catch (Exception ex)
-			{
-
-				throw ex;
-			}
-		}
-
-		public void ExcluirMusica(Musica musica)
-		{
-			try
-			{
-				context.Musicas.Remove(musica);
-				context.SaveChanges();
-			}
-			catch (Exception ex)
-			{
-
-				throw ex;
-			}
-		}
     }
 }

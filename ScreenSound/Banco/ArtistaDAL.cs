@@ -9,62 +9,9 @@ using System.Threading.Tasks;
 
 namespace ScreenSound.Banco
 {
-    internal class ArtistaDAL
+    internal class ArtistaDAL : DAL<Artista>
     {
-        private readonly ScreenSoundContext context;
-
-        public ArtistaDAL(ScreenSoundContext context)
-        {
-            this.context = context;
-        }
-
-        public IEnumerable<Artista> Listar()
-        {
-            return context.Artistas.ToList();
-        }
-
-        public void AddArtista(Artista artista)
-        {
-            try
-            {
-                context.Artistas.Add(artista);
-                context.SaveChanges();
-
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-           
-        }
-        public void DeleteArtista(Artista artista)
-        {
-            try
-            {
-                context.Artistas.Remove(artista);
-                context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
-        public void UpdateArtista(Artista artista)
-        {
-            try
-            {
-                context.Artistas.Update(artista);
-                context.SaveChanges ();
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
+        public ArtistaDAL(ScreenSoundContext context) : base(context) { }
 
         public Artista RecuperarPeloNome(string nome)
         {
